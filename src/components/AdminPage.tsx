@@ -14,6 +14,7 @@ const AdminPage: React.FC = () => {
   const [scores, setScores] = useState<Scores>({});
   const [lockedQuestions, setLockedQuestions] = useState<number[]>([]);
   const [currentRound, setCurrentRound] = useState<number>(1);
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,8 +59,10 @@ const AdminPage: React.FC = () => {
         if (snapshot.exists()) {
           const gameState = snapshot.val() as GameState;
           setCurrentRound(gameState.currentRound || 1);
+          setGameStarted(gameState.hasStarted || false);
         } else {
           setCurrentRound(1);
+          setGameStarted(false);
         }
       });
 
@@ -129,9 +132,23 @@ const AdminPage: React.FC = () => {
     if (newRound < 1 || newRound > rounds.length) return;
     
     try {
-      await set(ref(database, 'gameState'), { currentRound: newRound });
+      await set(ref(database, 'gameState'), { 
+        currentRound: newRound,
+        hasStarted: gameStarted 
+      });
     } catch (error) {
       console.error('Error changing round:', error);
+    }
+  };
+
+  const startGame = async () => {
+    try {
+      await set(ref(database, 'gameState'), { 
+        currentRound: 1,
+        hasStarted: true 
+      });
+    } catch (error) {
+      console.error('Error starting game:', error);
     }
   };
 
@@ -141,7 +158,8 @@ const AdminPage: React.FC = () => {
       '- Delete all teams\n' +
       '- Clear all answers\n' +
       '- Clear all scores\n' +
-      '- Reset to Round 1\n\n' +
+      '- Reset to Round 1\n' +
+      '- Send everyone back to lobby\n\n' +
       'This action cannot be undone!'
     );
 
@@ -152,7 +170,7 @@ const AdminPage: React.FC = () => {
       await set(ref(database, 'teams'), null);
       await set(ref(database, 'scores'), null);
       await set(ref(database, 'locked'), null);
-      await set(ref(database, 'gameState'), { currentRound: 1 });
+      await set(ref(database, 'gameState'), { currentRound: 1, hasStarted: false });
       
       alert('Game reset successfully!');
     } catch (error) {
@@ -222,6 +240,14 @@ const AdminPage: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              {!gameStarted && (
+                <button
+                  onClick={startGame}
+                  className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-bold text-lg"
+                >
+                  🚀 Start Game
+                </button>
+              )}
               <button
                 onClick={resetGame}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-semibold"
@@ -246,7 +272,21 @@ const AdminPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Round Controls */}
+        {!gameStarted ? (
+          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-2xl p-8 text-center">
+            <h3 className="text-2xl font-bold text-yellow-900 mb-4">
+              Game Not Started
+            </h3>
+            <p className="text-yellow-800 mb-4">
+              {teams.length} team{teams.length !== 1 ? 's' : ''} waiting in lobby
+            </p>
+            <p className="text-yellow-700">
+              Click "Start Game" when you're ready to begin Round 1
+            </p>
+          </div>
+        ) : (
+          <>
+            {/* Round Controls */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex items-center justify-between">
             <button
@@ -385,6 +425,8 @@ const AdminPage: React.FC = () => {
             );
           })}
         </div>
+          </>
+        )}
       </div>
     </div>
   );

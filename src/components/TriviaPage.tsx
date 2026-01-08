@@ -44,11 +44,19 @@ const TriviaPage: React.FC = () => {
       if (snapshot.exists()) {
         const gameState = snapshot.val() as GameState;
         setCurrentRound(gameState.currentRound || 1);
+        
+        // If game hasn't started, redirect to lobby
+        if (!gameState.hasStarted) {
+          navigate('/lobby');
+        }
+      } else {
+        // No game state, redirect to lobby
+        navigate('/lobby');
       }
     });
 
     return () => off(gameStateRef);
-  }, []);
+  }, [navigate]);
 
   const saveAnswer = async (questionId: number, answer: string | string[]) => {
     if (!currentTeam) return;
@@ -131,7 +139,6 @@ const TriviaPage: React.FC = () => {
                       Question {question.id}
                       {isMultiPart && <span className="text-purple-600 ml-2">({parts} parts)</span>}
                     </h3>
-                    <p className="text-gray-700 text-lg">{question.text}</p>
                   </div>
                   {isAnswered && (
                     <div className="flex items-center gap-2 text-green-600 ml-4">

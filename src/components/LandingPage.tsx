@@ -28,7 +28,7 @@ const LandingPage: React.FC = () => {
       }
       
       sessionStorage.setItem('currentTeam', teamName);
-      navigate('/trivia');
+      navigate('/lobby');
     } catch (error) {
       console.error('Error creating team:', error);
       alert('Error creating team. Please try again.');
@@ -51,7 +51,7 @@ const LandingPage: React.FC = () => {
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2 ">Team Name</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Team Name</label>
               <input
                 type="text"
                 value={teamName}

@@ -10,4 +10,5 @@ export interface Scores {
 
 export interface GameState {
   currentRound: number;
+  hasStarted: boolean;
 }
