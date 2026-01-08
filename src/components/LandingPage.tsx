@@ -8,30 +8,42 @@ import type { TeamData } from '../types';
 const LandingPage: React.FC = () => {
   const [teamName, setTeamName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const createTeam = async () => {
-    if (!teamName.trim()) return;
+    if (!teamName.trim()) {
+      setError('Please enter a team name');
+      return;
+    }
     
     setLoading(true);
+    setError('');
+    
     try {
       const teamRef = ref(database, `teams/${teamName}`);
       const snapshot = await get(teamRef);
       
-      if (!snapshot.exists()) {
-        const teamData: TeamData = {
-          name: teamName,
-          answers: {},
-          timestamp: Date.now()
-        };
-        await set(teamRef, teamData);
+      if (snapshot.exists()) {
+        // Team name already taken
+        setError(`Team name "${teamName}" is already taken. Please choose a different name.`);
+        setLoading(false);
+        return;
       }
+      
+      // Create new team
+      const teamData: TeamData = {
+        name: teamName,
+        answers: {},
+        timestamp: Date.now()
+      };
+      await set(teamRef, teamData);
       
       sessionStorage.setItem('currentTeam', teamName);
       navigate('/lobby');
     } catch (error) {
       console.error('Error creating team:', error);
-      alert('Error creating team. Please try again.');
+      setError('Error creating team. Please try again.');
     }
     setLoading(false);
   };
@@ -41,44 +53,69 @@ const LandingPage: React.FC = () => {
       <div className="max-w-2xl w-full">
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 transform transition-transform">
           <div className="text-center mb-8">
-            <div style={{display: "flex",  alignContent: "center", margin: "auto", maxWidth: "max-content", gap: 20}}>
-                <img 
+            <div className="flex items-center justify-center mx-auto gap-5 mb-4">
+              <img 
                 src="/couchIcon.png" 
-                alt="Trophy" 
-                className="w-20 h-20 mx-auto mb-4 object-contain"
-                />
-                <img 
+                alt="Couch Icon" 
+                className="w-20 h-20 object-contain"
+              />
+              <img 
                 src="/maap.png" 
-                alt="Trophy" 
-                className="w-20 h-20 mx-auto mb-4 object-contain"
-                />
+                alt="MAAP Logo" 
+                className="w-20 h-20 object-contain"
+              />
             </div>
-            <h1 className="text-2xl font-bold text-gray-800 mb-2 tracking-tighter">Couch View Trivia Night</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 tracking-tighter">
+              Couch View Trivia Night
+            </h1>
           </div>
 
           <div className="space-y-6">
             <div>
-
-              <label className="block text-md font-semibold text-gray-700">Enter Team Name</label>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Most creative team name will win calendar</label>
+              <label className="block text-lg font-bold text-gray-800 mb-1">
+                Enter Team Name
+              </label>
+              <label className="block text-sm font-semibold text-gray-600 mb-3">
+                Most creative team name wins a calendar 🏆
+              </label>
               <input
                 type="text"
                 value={teamName}
-                onChange={(e) => setTeamName(e.target.value)}
+                onChange={(e) => {
+                  setTeamName(e.target.value);
+                  setError(''); // Clear error when typing
+                }}
                 onKeyPress={(e) => e.key === 'Enter' && createTeam()}
                 placeholder="Something like Wout van Farts..."
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition-all text-lg"
+                className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 outline-none transition-all text-lg ${
+                  error 
+                    ? 'border-red-500 focus:border-red-500 focus:ring-red-200' 
+                    : 'border-gray-300 focus:border-purple-500 focus:ring-purple-200'
+                }`}
               />
+              {error && (
+                <p className="mt-2 text-sm font-semibold text-red-600">
+                  {error}
+                </p>
+              )}
             </div>
 
             <button
               onClick={createTeam}
               disabled={loading || !teamName.trim()}
-              style={{margin: "auto", color: "black"}}
-              className="w-full py-4 rounded-xl font-bold text-2xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-black text-white py-4 rounded-xl font-bold text-2xl hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? 'Creating Team...' : 'Join'}
             </button>
+
+            <div className="text-center pt-4 border-t-2 border-gray-200">
+              <a
+                href="/admin"
+                className="text-gray-600 hover:text-gray-800 font-semibold text-sm transition-colors"
+              >
+                For my eyes only →
+              </a>
+            </div>
           </div>
         </div>
       </div>
