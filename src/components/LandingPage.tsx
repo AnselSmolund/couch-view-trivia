@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, Trophy } from 'lucide-react';
+import { Users } from 'lucide-react';
 import { ref, set, get } from 'firebase/database';
 import { database } from '../firebase';
 import type { TeamData } from '../types';

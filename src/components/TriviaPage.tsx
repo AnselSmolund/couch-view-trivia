@@ -26,7 +26,7 @@ const TriviaPage: React.FC = () => {
   useEffect(() => {
     if (currentTeam) {
       const teamRef = ref(database, `teams/${currentTeam}`);
-      const unsubscribe = onValue(teamRef, (snapshot) => {
+      onValue(teamRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val() as TeamData;
           setAnswers(data.answers || {});
@@ -40,7 +40,7 @@ const TriviaPage: React.FC = () => {
   // Listen to current round
   useEffect(() => {
     const gameStateRef = ref(database, 'gameState');
-    const unsubscribe = onValue(gameStateRef, (snapshot) => {
+    onValue(gameStateRef, (snapshot) => {
       if (snapshot.exists()) {
         const gameState = snapshot.val() as GameState;
         setCurrentRound(gameState.currentRound || 1);

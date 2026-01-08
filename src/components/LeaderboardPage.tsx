@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Trophy, Award, Medal, RefreshCw } from 'lucide-react';
+import { Trophy, Award, Medal } from 'lucide-react';
 import { ref, onValue, off } from 'firebase/database';
 import { database } from '../firebase';
 import type { TeamData, Scores } from '../types';
@@ -11,7 +11,7 @@ const LeaderboardPage: React.FC = () => {
   useEffect(() => {
     // Listen to teams
     const teamsRef = ref(database, 'teams');
-    const teamsUnsubscribe = onValue(teamsRef, (snapshot) => {
+    onValue(teamsRef, (snapshot) => {
       if (snapshot.exists()) {
         const teamsData = snapshot.val();
         const teamsArray = Object.values(teamsData) as TeamData[];
@@ -23,7 +23,7 @@ const LeaderboardPage: React.FC = () => {
 
     // Listen to scores
     const scoresRef = ref(database, 'scores');
-    const scoresUnsubscribe = onValue(scoresRef, (snapshot) => {
+    onValue(scoresRef, (snapshot) => {
       if (snapshot.exists()) {
         setScores(snapshot.val());
       } else {

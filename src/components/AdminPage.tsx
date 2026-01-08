@@ -24,7 +24,7 @@ const AdminPage: React.FC = () => {
   useEffect(() => {
     if (isAuthenticated === true) {
       const teamsRef = ref(database, 'teams');
-      const teamsUnsubscribe = onValue(teamsRef, (snapshot) => {
+      onValue(teamsRef, (snapshot) => {
         if (snapshot.exists()) {
           const teamsData = snapshot.val();
           const teamsArray = Object.values(teamsData) as TeamData[];
@@ -35,7 +35,7 @@ const AdminPage: React.FC = () => {
       });
 
       const scoresRef = ref(database, 'scores');
-      const scoresUnsubscribe = onValue(scoresRef, (snapshot) => {
+      onValue(scoresRef, (snapshot) => {
         if (snapshot.exists()) {
           setScores(snapshot.val());
         } else {
@@ -44,7 +44,7 @@ const AdminPage: React.FC = () => {
       });
 
       const lockedRef = ref(database, 'locked');
-      const lockedUnsubscribe = onValue(lockedRef, (snapshot) => {
+      onValue(lockedRef, (snapshot) => {
         if (snapshot.exists()) {
           setLockedQuestions(snapshot.val());
         } else {
@@ -54,7 +54,7 @@ const AdminPage: React.FC = () => {
 
       // Listen to game state
       const gameStateRef = ref(database, 'gameState');
-      const gameStateUnsubscribe = onValue(gameStateRef, (snapshot) => {
+      onValue(gameStateRef, (snapshot) => {
         if (snapshot.exists()) {
           const gameState = snapshot.val() as GameState;
           setCurrentRound(gameState.currentRound || 1);
