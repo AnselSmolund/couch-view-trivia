@@ -109,7 +109,7 @@ const LeaderboardPage: React.FC = () => {
                             ? 'bg-gray-500 text-gray-100'
                             : index === 2
                             ? 'bg-orange-700 text-orange-100'
-                            : 'bg-white/20 text-white'
+                            : 'bg-white/20 text-black'
                         }`}
                       >
                         {index === 0 ? (
@@ -127,7 +127,7 @@ const LeaderboardPage: React.FC = () => {
                       <div>
                         <h3
                           className={`text-2xl md:text-4xl font-bold ${
-                            isTopThree ? 'text-gray-900' : 'text-white'
+                            isTopThree ? 'text-gray-900' : 'text-black'
                           }`}
                         >
                           {team.name}
@@ -144,14 +144,14 @@ const LeaderboardPage: React.FC = () => {
                     <div className="text-right">
                       <div
                         className={`text-4xl md:text-6xl font-bold ${
-                          isTopThree ? 'text-gray-900' : 'text-white'
+                          isTopThree ? 'text-gray-900' : 'text-black'
                         }`}
                       >
                         {totalScore}
                       </div>
                       <div
                         className={`text-sm md:text-lg font-semibold ${
-                          isTopThree ? 'text-gray-700' : 'text-white/80'
+                          isTopThree ? 'text-gray-700' : 'text-black/80'
                         }`}
                       >
                         points
