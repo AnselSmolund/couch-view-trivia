@@ -124,9 +124,9 @@ const LobbyPage: React.FC = () => {
           <div className="bg-purple-50 border-2 border-purple-200 rounded-2xl p-6 mb-6">
             <h3 className="font-bold text-purple-900 mb-2">What's Next?</h3>
             <ul className="space-y-2 text-purple-800">
-              <li>• The host will start the game shortly</li>
+              <li>• Ill start the game shortly</li>
               <li>• You'll automatically be taken to Round 1 when it begins</li>
-              <li>• Answer questions as they appear on your screen</li>
+              <li>• Answer questions as they appear on the screen</li>
               <li>• Once submitted, answers are locked</li>
             </ul>
           </div>

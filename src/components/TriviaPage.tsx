@@ -113,15 +113,9 @@ const TriviaPage: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">{currentTeam}</h2>
-              <p className="text-purple-600 font-semibold text-lg mt-1">{currentRoundData.name}</p>
+              <h2 className="text-5xl font-bold text-gray-800">{currentTeam}</h2>
+              <p className="text-yellow-600 font-semibold text-3xl mt-1">{currentRoundData.name}</p>
             </div>
-            <button
-              onClick={leaveTeam}
-              className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
-            >
-              Leave Team
-            </button>
           </div>
         </div>
 
@@ -239,6 +233,13 @@ const TriviaPage: React.FC = () => {
               </div>
             );
           })}
+        </div>
+        <div className="bg-gray-50 p-4">
+            <button
+              onClick={leaveTeam}
+              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-semibold"            >
+              Leave Team
+            </button>
         </div>
       </div>
     </div>
