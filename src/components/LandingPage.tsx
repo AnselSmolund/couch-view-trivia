@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Users } from 'lucide-react';
 import { ref, set, get } from 'firebase/database';
 import { database } from '../firebase';
 import type { TeamData } from '../types';
@@ -24,8 +25,18 @@ const LandingPage: React.FC = () => {
       const snapshot = await get(teamRef);
       
       if (snapshot.exists()) {
-        // Team name already taken
-        setError(`Team name "${teamName}" is already taken. Please choose a different name.`);
+        // Team already exists - ask if they want to rejoin
+        const confirmed = window.confirm(
+          `Team "${teamName}" already exists.\n\nDid you create this team earlier and need to rejoin?\n\nClick OK to rejoin, or Cancel to choose a different name.`
+        );
+        
+        if (confirmed) {
+          // Let them rejoin
+          sessionStorage.setItem('currentTeam', teamName);
+          navigate('/lobby');
+        } else {
+          setError('Please choose a different team name');
+        }
         setLoading(false);
         return;
       }
@@ -104,6 +115,7 @@ const LandingPage: React.FC = () => {
               disabled={loading || !teamName.trim()}
               className="w-full bg-black text-white py-4 rounded-xl font-bold text-2xl hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
+              <Users className="w-7 h-7" />
               {loading ? 'Creating Team...' : 'Join'}
             </button>
 
@@ -112,7 +124,7 @@ const LandingPage: React.FC = () => {
                 href="/admin"
                 className="text-gray-600 hover:text-gray-800 font-semibold text-sm transition-colors"
               >
-                For my eyes only →
+               for ansel →
               </a>
             </div>
           </div>

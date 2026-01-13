@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Unlock, RefreshCw, ChevronLeft, ChevronRight } from 'lucide-react';
-import { ref, set, onValue, off } from 'firebase/database';
+import { Lock, Unlock, RefreshCw, ChevronLeft, ChevronRight, KeyRound } from 'lucide-react';
+import { ref, set, get, onValue, off } from 'firebase/database';
 import { database } from '../firebase';
 import type { TeamData, Scores, GameState } from '../types';
 import { ADMIN_PASSWORD } from '../constants';
@@ -128,6 +128,44 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  const unlockAnswer = async (teamName: string, questionId: number) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to unlock ${teamName}'s answer for Question ${questionId}?\n\nThis will allow them to edit and resubmit their answer.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      // Find the team and remove their answer for this question
+      const teamRef = ref(database, `teams/${teamName}`);
+      const snapshot = await get(teamRef);
+      
+      if (snapshot.exists()) {
+        const teamData = snapshot.val() as TeamData;
+        const newAnswers = { ...teamData.answers };
+        delete newAnswers[questionId];
+        
+        await set(teamRef, {
+          ...teamData,
+          answers: newAnswers,
+          timestamp: Date.now()
+        });
+
+        // Also clear the score for this question
+        const newScores = { ...scores };
+        if (newScores[teamName] && newScores[teamName][questionId] !== undefined) {
+          delete newScores[teamName][questionId];
+          await set(ref(database, 'scores'), newScores);
+        }
+
+        alert(`Answer unlocked for ${teamName}!`);
+      }
+    } catch (error) {
+      console.error('Error unlocking answer:', error);
+      alert('Error unlocking answer. Please try again.');
+    }
+  };
+
   const changeRound = async (newRound: number) => {
     if (newRound < 1 || newRound > rounds.length) return;
     
@@ -178,6 +216,7 @@ const AdminPage: React.FC = () => {
       alert('Error resetting game. Please try again.');
     }
   };
+
 
   if (isAuthenticated === null) {
     return (
@@ -353,10 +392,24 @@ const AdminPage: React.FC = () => {
                     teams.map((team) => {
                       const teamAnswer = team.answers && team.answers[question.id];
                       const teamScore = scores[team.name]?.[question.id];
+                      const hasAnswer = teamAnswer !== undefined && teamAnswer !== null && 
+                        (Array.isArray(teamAnswer) ? teamAnswer.some(a => a) : teamAnswer);
                       
                       return (
                         <div key={team.name} className="border-2 border-gray-200 rounded-lg p-4">
-                          <p className="font-semibold text-gray-800 mb-3">{team.name}</p>
+                          <div className="flex items-start justify-between gap-2 mb-3">
+                            <p className="font-semibold text-gray-800">{team.name}</p>
+                            {hasAnswer && (
+                              <button
+                                onClick={() => unlockAnswer(team.name, question.id)}
+                                className="px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 transition-colors font-semibold text-sm flex items-center gap-1"
+                                title="Unlock this answer so the team can edit it"
+                              >
+                                <KeyRound className="w-4 h-4" />
+                                Unlock
+                              </button>
+                            )}
+                          </div>
                           
                           {isMultiPart && Array.isArray(teamAnswer) ? (
                             <div className="space-y-3">

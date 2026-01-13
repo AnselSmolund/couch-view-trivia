@@ -1,4 +1,4 @@
-export const ADMIN_PASSWORD = 'trivia2024';
-export const TOTAL_QUESTIONS = 40;
-export const TOTAL_ROUNDS = 8;
+export const ADMIN_PASSWORD = 'ansel';
+export const TOTAL_QUESTIONS = 41;
+export const TOTAL_ROUNDS = 9;
 export const QUESTIONS_PER_ROUND = 5;
