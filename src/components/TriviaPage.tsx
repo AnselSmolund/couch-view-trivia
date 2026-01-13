@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, ChevronLeft, ChevronRight, XCircle, Clock } from 'lucide-react';
 import { ref, set, get, onValue, off } from 'firebase/database';
 import { database } from '../firebase';
 import type { TeamData, GameState, Scores } from '../types';
-import { rounds } from '../questions'
+import { rounds } from '../questions';
 
 const TriviaPage: React.FC = () => {
   const [currentTeam, setCurrentTeam] = useState<string | null>(null);
@@ -24,6 +24,9 @@ const TriviaPage: React.FC = () => {
     } else {
       navigate('/');
     }
+    
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
   }, [navigate]);
 
   useEffect(() => {
@@ -65,6 +68,8 @@ const TriviaPage: React.FC = () => {
         // Reset question index when round changes
         if (newRound !== currentRound) {
           setCurrentQuestionIndex(0);
+          // Scroll to top when round changes
+          window.scrollTo(0, 0);
         }
         
         setCurrentRound(newRound);
@@ -169,12 +174,14 @@ const TriviaPage: React.FC = () => {
   const goToNextQuestion = () => {
     if (currentQuestionIndex < totalQuestions - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const goToPreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -209,8 +216,6 @@ const TriviaPage: React.FC = () => {
           ))}
         </div>
       </div>
-      
-
 
       {/* Main Title */}
       <div className="text-center mb-4 relative z-10">
@@ -440,11 +445,11 @@ const TriviaPage: React.FC = () => {
           </div>
 
           {/* MAAP Logo Branding */}
-          <div className="flex justify-center mt-4 gap-4">
-           <img 
+          <div className="flex justify-center mt-4">
+            <img 
               src="/couchIcon.png" 
               alt="MAAP" 
-              className="h-12 object-fill opacity-100"
+              className="h-12 object-contain opacity-80"
             />
           </div>
         </div>
