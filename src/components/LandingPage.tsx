@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users } from 'lucide-react';
 import { ref, set, get } from 'firebase/database';
@@ -10,6 +10,15 @@ const LandingPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  // Lock scroll on mount
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   const createTeam = async () => {
     if (!teamName.trim()) {
@@ -59,7 +68,7 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-pink-600 to-yellow-600 flex items-center justify-center p-4 tracking-tighter">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-pink-600 to-yellow-600 flex items-start justify-center p-4 tracking-tighter pt-20">
       <div className="max-w-2xl w-full">
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 transform transition-transform">
           <div className="text-center mb-8">
@@ -124,7 +133,7 @@ const LandingPage: React.FC = () => {
                 href="/admin"
                 className="text-gray-600 hover:text-gray-800 font-semibold text-sm transition-colors"
               >
-               for ansel →
+                for couch employees only →
               </a>
             </div>
           </div>

@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ref, onValue, off } from 'firebase/database';
 import { database } from '../firebase';
-import type { GameState } from '../types';
+import type { GameState} from '../types';
 
 const LobbyPage: React.FC = () => {
   const [currentTeam, setCurrentTeam] = useState<string | null>(null);
   const navigate = useNavigate();
-
 
 
   useEffect(() => {
@@ -17,6 +16,13 @@ const LobbyPage: React.FC = () => {
     } else {
       navigate('/');
     }
+    
+    // Lock scroll on mount
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [navigate]);
 
   // Listen for game start
@@ -76,8 +82,6 @@ const LobbyPage: React.FC = () => {
         </div>
       </div>
       
-
-
       {/* Main Title */}
       <div className="text-center mb-4 relative z-10">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 tracking-tighter">
