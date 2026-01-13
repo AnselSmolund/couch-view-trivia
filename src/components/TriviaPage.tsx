@@ -269,7 +269,6 @@ const TriviaPage: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <p className="text-gray-700 text-base">{currentQuestion.text}</p>
               </div>
               {isAnswered && (
                 <div className="flex items-center gap-1 ml-2">
