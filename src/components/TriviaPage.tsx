@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, ChevronLeft, ChevronRight, XCircle, Clock } from 'lucide-react';
 import { ref, set, get, onValue, off } from 'firebase/database';
@@ -25,8 +25,13 @@ const TriviaPage: React.FC = () => {
       navigate('/');
     }
     
-    // Scroll to top when component mounts
-    window.scrollTo(0, 0);
+    // Lock scroll when component mounts
+    document.body.style.overflow = 'hidden';
+    
+    // Unlock scroll when component unmounts
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [navigate]);
 
   useEffect(() => {
@@ -68,8 +73,6 @@ const TriviaPage: React.FC = () => {
         // Reset question index when round changes
         if (newRound !== currentRound) {
           setCurrentQuestionIndex(0);
-          // Scroll to top when round changes
-          window.scrollTo(0, 0);
         }
         
         setCurrentRound(newRound);
@@ -174,14 +177,12 @@ const TriviaPage: React.FC = () => {
   const goToNextQuestion = () => {
     if (currentQuestionIndex < totalQuestions - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      window.scrollTo(0, 0);
     }
   };
 
   const goToPreviousQuestion = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
-      window.scrollTo(0, 0);
     }
   };
 
@@ -216,6 +217,7 @@ const TriviaPage: React.FC = () => {
           ))}
         </div>
       </div>
+      
 
       {/* Main Title */}
       <div className="text-center mb-4 relative z-10">
