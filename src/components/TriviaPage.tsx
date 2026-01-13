@@ -90,14 +90,6 @@ const TriviaPage: React.FC = () => {
     setLoading(false);
   };
 
-  const leaveTeam = () => {
-    sessionStorage.removeItem('currentTeam');
-    setCurrentTeam(null);
-    setAnswers({});
-    setCurrentAnswers({});
-    navigate('/');
-  };
-
   if (!currentTeam) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
@@ -108,13 +100,44 @@ const TriviaPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gray-100 p-4 relative overflow-hidden">
+      {/* Random Pattern Background */}
+      <div 
+        className="fixed inset-0 pointer-events-none opacity-10"
+        style={{
+          backgroundImage: 'url(/couch.png)',
+          backgroundSize: '100px 100px',
+          backgroundRepeat: 'repeat',
+          transform: 'rotate(-5deg) scale(1.2)',
+        }}
+      />
+      
+      {/* Random scattered icons for more visual interest */}
+      <div className="fixed inset-0 pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <img
+            key={i}
+            src="/pattern.png"
+            alt=""
+            className="absolute"
+            style={{
+              width: `${Math.random() * 60 + 40}px`,
+              height: `${Math.random() * 60 + 40}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              opacity: 0.08,
+              transform: `rotate(${Math.random() * 360}deg)`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-4xl mx-auto relative z-10">
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-5xl font-bold text-gray-800">{currentTeam}</h2>
-              <p className="text-yellow-600 font-semibold text-3xl mt-1">{currentRoundData.name}</p>
+              <h2 className="text-3xl font-bold text-gray-800">{currentTeam}</h2>
+              <p className="text-purple-600 font-semibold text-lg mt-1">{currentRoundData.name}</p>
             </div>
           </div>
         </div>
@@ -133,6 +156,7 @@ const TriviaPage: React.FC = () => {
                       Question {question.id}
                       {isMultiPart && <span className="text-purple-600 ml-2">({parts} parts)</span>}
                     </h3>
+    
                   </div>
                   {isAnswered && (
                     <div className="flex items-center gap-2 text-green-600 ml-4">
@@ -233,13 +257,6 @@ const TriviaPage: React.FC = () => {
               </div>
             );
           })}
-        </div>
-        <div className="bg-gray-50 p-4">
-            <button
-              onClick={leaveTeam}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-semibold"            >
-              Leave Team
-            </button>
         </div>
       </div>
     </div>
