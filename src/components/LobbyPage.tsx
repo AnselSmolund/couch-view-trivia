@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ref, onValue, off } from 'firebase/database';
 import { database } from '../firebase';
-import type { GameState} from '../types';
+import type { GameState } from '../types';
 
 const LobbyPage: React.FC = () => {
   const [currentTeam, setCurrentTeam] = useState<string | null>(null);
@@ -16,13 +16,6 @@ const LobbyPage: React.FC = () => {
     } else {
       navigate('/');
     }
-    
-    // Lock scroll on mount
-    document.body.style.overflow = 'hidden';
-    
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
   }, [navigate]);
 
   // Listen for game start
@@ -39,6 +32,7 @@ const LobbyPage: React.FC = () => {
 
     return () => off(gameStateRef);
   }, [navigate]);
+
 
   const leaveTeam = () => {
     sessionStorage.removeItem('currentTeam');
@@ -107,7 +101,6 @@ const LobbyPage: React.FC = () => {
         >
           Leave Lobby
         </button>
-
       </div>
     </div>
   );

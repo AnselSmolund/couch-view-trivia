@@ -16,7 +16,6 @@ const TriviaPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const savedTeam = sessionStorage.getItem('currentTeam');
     if (savedTeam) {
@@ -25,13 +24,8 @@ const TriviaPage: React.FC = () => {
       navigate('/');
     }
     
-    // Lock scroll when component mounts
-    document.body.style.overflow = 'hidden';
-    
-    // Unlock scroll when component unmounts
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
   }, [navigate]);
 
   useEffect(() => {
@@ -217,7 +211,7 @@ const TriviaPage: React.FC = () => {
           ))}
         </div>
       </div>
-      
+    
 
       {/* Main Title */}
       <div className="text-center mb-4 relative z-10">
@@ -275,6 +269,7 @@ const TriviaPage: React.FC = () => {
                     </span>
                   )}
                 </div>
+                <p className="text-gray-700 text-base">{currentQuestion.text}</p>
               </div>
               {isAnswered && (
                 <div className="flex items-center gap-1 ml-2">

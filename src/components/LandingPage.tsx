@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Users } from 'lucide-react';
 import { ref, set, get } from 'firebase/database';
@@ -10,15 +10,6 @@ const LandingPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
-  // Lock scroll on mount
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
 
   const createTeam = async () => {
     if (!teamName.trim()) {
@@ -133,7 +124,7 @@ const LandingPage: React.FC = () => {
                 href="/admin"
                 className="text-gray-600 hover:text-gray-800 font-semibold text-sm transition-colors"
               >
-                for couch employees only →
+                couch view employees only →
               </a>
             </div>
           </div>
