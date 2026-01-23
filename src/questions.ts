@@ -14,18 +14,18 @@ export interface Round {
 export const rounds: Round[] = [
   {
     number: 1,
-    name: "Round 1: Silhouette celebrations",
+    name: "Round 1: Tour Down Under",
     questions: [
-      { id: 1, text: "rider 1" },
-      { id: 2, text: "rider 2" },
-      { id: 3, text: "rider 3" },
-      { id: 4, text: "rider 4" },
-      { id: 5, text: "rider 5" }
+      { id: 1, text: "mascot" },
+      { id: 2, text: "del toro" },
+      { id: 3, text: "most wins" },
+      { id: 4, text: "most team" },
+      { id: 5, text: "stage wins" }
     ]
   },
   {
     number: 2,
-    name: "Round 2: TOUR DE FRANCE",
+    name: "Round 2: Silhouette celebrations",
     questions: [
       { id: 6, text: "question 1" },
       { id: 7, text: "question 2" },
@@ -36,7 +36,7 @@ export const rounds: Round[] = [
   },
   {
     number: 3,
-    name: "Round 3: Historic climbs",
+    name: "Round 3: TOUR DE FRANCE",
     questions: [
       { id: 11, text: "question 1" },
       { id: 12, text: "question 2" },
@@ -47,7 +47,7 @@ export const rounds: Round[] = [
   },
   {
     number: 4,
-    name: "Round 4: Nicknames",
+    name: "Round 4: Historic climbs",
     questions: [
       { id: 16, text: "question 1" },
       { id: 17, text: "question 2" },
@@ -58,7 +58,7 @@ export const rounds: Round[] = [
   },
   {
     number: 5,
-    name: "Round 4: Match the prize with the race",
+    name: "Round 5: Match the prize with the race",
     questions: [
       { id: 21, text: "A Cobble Stone" },
       { id: 22, text: "A big beer" },
@@ -91,7 +91,7 @@ export const rounds: Round[] = [
   },
   {
     number: 8,
-    name: "Round 8: MAAP/JACYO",
+    name: "Round 8: JACYO",
     questions: [
       { id: 36, text: "question 1" },
       { id: 37, text: "question 2" },
@@ -102,9 +102,20 @@ export const rounds: Round[] = [
   },
   {
     number: 9,
-    name: "tiebreaker",
+    name: "Round 9: Nicknames",
     questions: [
       { id: 41, text: "question 1" },
+      { id: 42, text: "question 2" },
+      { id: 43, text: "questino 3" },
+      { id: 44, text: "question 4" },
+      { id: 45, text: "question 5" }
+    ]
+  },
+  {
+    number: 10,
+    name: "tiebreaker",
+    questions: [
+      { id: 46, text: "question 1" },
     ]
   },
 ];
