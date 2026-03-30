@@ -61,7 +61,7 @@ const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-600 via-pink-600 to-yellow-600 flex items-start justify-center p-4 tracking-tighter pt-20">
       <div className="max-w-2xl w-full">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 transform transition-transform">
+        <div className="rounded-3xl shadow-2xl p-8 md:p-12 transform transition-transform" style={{background:"black"}}>
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mx-auto gap-5 mb-4">
               <img 
@@ -70,22 +70,27 @@ const LandingPage: React.FC = () => {
                 className="w-20 h-20 object-contain"
               />
               <img 
-                src="/maap.png" 
+                src="/100.png" 
+                alt="MAAP Logo" 
+                className="w-20 h-20 object-contain"
+              />
+              <img 
+                src="/flcs.png" 
                 alt="MAAP Logo" 
                 className="w-20 h-20 object-contain"
               />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 tracking-tighter">
+            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tighter">
               Couch View Trivia Night
             </h1>
           </div>
 
           <div className="space-y-6">
             <div>
-              <label className="block text-lg font-bold text-gray-800 mb-1">
+              <label className="block text-lg font-bold text-white mb-1">
                 Enter Team Name
               </label>
-              <label className="block text-sm font-semibold text-gray-600 mb-3">
+              <label className="block text-sm font-semibold text-white mb-3">
                 Most creative team name wins a calendar 🏆
               </label>
               <input
@@ -97,7 +102,7 @@ const LandingPage: React.FC = () => {
                 }}
                 onKeyPress={(e) => e.key === 'Enter' && createTeam()}
                 placeholder="Something like Wout van Farts..."
-                className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 outline-none transition-all text-lg ${
+                className={`w-full px-4 py-3 text-white border-2 rounded-xl focus:ring-2 outline-none transition-all text-lg ${
                   error 
                     ? 'border-red-500 focus:border-red-500 focus:ring-red-200' 
                     : 'border-gray-300 focus:border-purple-500 focus:ring-purple-200'
@@ -122,7 +127,7 @@ const LandingPage: React.FC = () => {
             <div className="text-center pt-4 border-t-2 border-gray-200">
               <a
                 href="/admin"
-                className="text-gray-600 hover:text-gray-800 font-semibold text-sm transition-colors"
+                className="text-white hover:text-white font-semibold text-sm transition-colors"
               >
                 couch view employees only →
               </a>

@@ -45,9 +45,9 @@ const LobbyPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-300 p-4 relative overflow-hidden">
       {/* Alternating Couch and MAAP Pattern Background */}
-      <div className="fixed inset-0 pointer-events-none opacity-10">
+      <div className="fixed inset-0 pointer-events-none opacity-30">
         <div 
           style={{
             display: 'grid',
@@ -63,7 +63,7 @@ const LobbyPage: React.FC = () => {
           {[...Array(200)].map((_, i) => (
             <div key={i} className="flex items-center justify-center">
               <img 
-                src={i % 2 === 0 ? '/couchIcon.png' : '/maap.png'} 
+                src={i % 2 === 0 ? '/couchIcon.png' : '/flcs.png'} 
                 alt="" 
                 style={{
                   width: '60px',

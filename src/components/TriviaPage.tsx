@@ -199,7 +199,7 @@ const TriviaPage: React.FC = () => {
           {[...Array(200)].map((_, i) => (
             <div key={i} className="flex items-center justify-center">
               <img 
-                src={i % 2 === 0 ? '/couchIcon.png' : '/maap.png'} 
+                src={i % 2 === 0 ? '/couchIcon.png' : '/flcs.png'} 
                 alt="" 
                 style={{
                   width: '60px',
