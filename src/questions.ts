@@ -14,13 +14,13 @@ export interface Round {
 export const rounds: Round[] = [
   {
     number: 1,
-    name: "Round 1: Tour Down Under",
+    name: "Round 1: Flemish Classics",
     questions: [
-      { id: 1, text: "mascot" },
-      { id: 2, text: "del toro" },
-      { id: 3, text: "most wins" },
-      { id: 4, text: "most team" },
-      { id: 5, text: "stage wins" }
+      { id: 1, text: "question 1" },
+      { id: 2, text: "question 2" },
+      { id: 3, text: "question 3" },
+      { id: 4, text: "question 4" },
+      { id: 5, text: "question 5" },
     ]
   },
   {
@@ -91,7 +91,7 @@ export const rounds: Round[] = [
   },
   {
     number: 8,
-    name: "Round 8: JACYO",
+    name: "Round 8: Nicknames",
     questions: [
       { id: 36, text: "question 1" },
       { id: 37, text: "question 2" },
@@ -102,20 +102,9 @@ export const rounds: Round[] = [
   },
   {
     number: 9,
-    name: "Round 9: Nicknames",
-    questions: [
-      { id: 41, text: "question 1" },
-      { id: 42, text: "question 2" },
-      { id: 43, text: "questino 3" },
-      { id: 44, text: "question 4" },
-      { id: 45, text: "question 5" }
-    ]
-  },
-  {
-    number: 10,
     name: "tiebreaker",
     questions: [
-      { id: 46, text: "question 1" },
+      { id: 41, text: "question 1" },
     ]
   },
 ];
