@@ -14,7 +14,7 @@ export interface Round {
 export const rounds: Round[] = [
   {
     number: 1,
-    name: "Round 1: Flemish Classics",
+    name: "Round 1: Tour De France",
     questions: [
       { id: 1, text: "question 1" },
       { id: 2, text: "question 2" },
@@ -36,7 +36,7 @@ export const rounds: Round[] = [
   },
   {
     number: 3,
-    name: "Round 3: TOUR DE FRANCE",
+    name: "Round 3: Historic Climbs",
     questions: [
       { id: 11, text: "question 1" },
       { id: 12, text: "question 2" },
@@ -47,7 +47,7 @@ export const rounds: Round[] = [
   },
   {
     number: 4,
-    name: "Round 4: Historic climbs",
+    name: "Round 4: Match the prize with the race",
     questions: [
       { id: 16, text: "question 1" },
       { id: 17, text: "question 2" },
@@ -58,53 +58,31 @@ export const rounds: Round[] = [
   },
   {
     number: 5,
-    name: "Round 5: Match the prize with the race",
+    name: "Round 5: Cropped Bikes",
     questions: [
-      { id: 21, text: "A Cobble Stone" },
-      { id: 22, text: "A big beer" },
-      { id: 23, text: "A trident" },
-      { id: 24, text: "Salmon" },
-      { id: 25, text: "Stuffed Toy Donkey" }
+      { id: 21, text: "Pink Cervelo", parts: 2, partLabels: ["Who", "When"] },
+      { id: 22, text: "Red Specialized", parts: 2, partLabels: ["Who", "When"] },
+      { id: 23, text: "Gold TT Bike", parts: 2, partLabels: ["Who", "When"] },
+      { id: 24, text: "Yellow Canyon", parts: 2, partLabels: ["Who", "When"] },
+      { id: 25, text: "Black Colnago", parts: 2, partLabels: ["Who", "When"] },
     ]
   },
   {
     number: 6,
-    name: "Round 6: Cropped Bikes",
+    name: "Round 6: Dogs of the peloton",
     questions: [
-      { id: 26, text: "Pink Cervelo", parts: 2, partLabels: ["Who", "When"] },
-      { id: 27, text: "Red Specialized", parts: 2, partLabels: ["Who", "When"] },
-      { id: 28, text: "Gold TT Bike", parts: 2, partLabels: ["Who", "When"] },
-      { id: 29, text: "Yellow Canyon", parts: 2, partLabels: ["Who", "When"] },
-      { id: 30, text: "Black Colnago", parts: 2, partLabels: ["Who", "When"] },
+      { id: 26, text: "The Nut Sisters" },
+      { id: 27, text: "Olive" },
+      { id: 28, text: "Zoe" },
+      { id: 29, text: "Bimba" },
+      { id: 30, text: "Flo" }
     ]
   },
   {
     number: 7,
-    name: "Round 7: Dogs of the peloton",
-    questions: [
-      { id: 31, text: "The Nut Sisters" },
-      { id: 32, text: "Olive" },
-      { id: 33, text: "Zoe" },
-      { id: 34, text: "Bimba" },
-      { id: 35, text: "Flo" }
-    ]
-  },
-  {
-    number: 8,
-    name: "Round 8: Nicknames",
-    questions: [
-      { id: 36, text: "question 1" },
-      { id: 37, text: "question 2" },
-      { id: 38, text: "questino 3" },
-      { id: 39, text: "question 4" },
-      { id: 40, text: "question 5" }
-    ]
-  },
-  {
-    number: 9,
     name: "tiebreaker",
     questions: [
-      { id: 41, text: "question 1" },
+      { id: 31, text: "question 1" },
     ]
   },
 ];

@@ -69,16 +69,6 @@ const LandingPage: React.FC = () => {
                 alt="Couch Icon" 
                 className="w-20 h-20 object-contain"
               />
-              <img 
-                src="/100.png" 
-                alt="MAAP Logo" 
-                className="w-20 h-20 object-contain"
-              />
-              <img 
-                src="/flcs.png" 
-                alt="MAAP Logo" 
-                className="w-20 h-20 object-contain"
-              />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tighter">
               Couch View Trivia Night
